@@ -78,6 +78,20 @@ public class RepairQueue {
         }
         return true;
     }
+        /** Position in the queue (1 = next to be processed), or -1 if not found. */
+    public int positionOf(String id) {
+        JobNode current = front;
+        int position = 1;
+        while (current != null) {
+            if (sameText(current.data.getJobId(), id)) {
+                return position;
+            }
+            current = current.next;
+            position++;
+        }
+        return -1;
+    }
+
 
 
 }
