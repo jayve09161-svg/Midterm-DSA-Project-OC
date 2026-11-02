@@ -1,22 +1,117 @@
 package repairjobscheduler;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author ASUS
  */
+import java.awt.Color;
+import javax.swing.JOptionPane;
+
 public class RepairSchedulerGUI extends javax.swing.JFrame {
-    
+
+    private final RepairQueue queue = new RepairQueue();
+    private int nextJobNumber = 1;
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RepairSchedulerGUI.class.getName());
 
     /**
-     * Creates new form RepairScheculerGUI
+     * RepairSchedulerGUI
      */
     public RepairSchedulerGUI() {
         initComponents();
+        setSize(820, 520);
+        setLocationRelativeTo(null);
+        refreshDisplay();
+    }
+
+    private void refreshDisplay() {
+        pendingArea.setText(queue.toDisplayString());
+        RepairJob next = queue.peek();
+        if (next == null) {
+            nextLabel.setText("Next repair: none  |  Pending: 0");
+        } else {
+            nextLabel.setText("Next repair: " + next.getJobId() + " (" + next.getCustomerName()
+                    + ")  |  Pending: " + queue.size());
+        }
+    }
+
+    private void showOk(String msg) {
+        statusLabel.setForeground(new Color(0, 120, 0));
+        statusLabel.setText(" " + msg);
+    }
+
+    private void showError(String msg) {
+        statusLabel.setForeground(Color.RED);
+        statusLabel.setText(" " + msg);
+    }
+
+    private String makeJobId(int n) {
+        String num = "" + n;
+        while (num.length() < 3) {
+            num = "0" + num;
+        }
+        return "JOB-" + num;
+    }
+
+    private boolean isValidContact(String s) {
+        if (s.length() < 7 || s.length() > 11) {
+            return false;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isDigit(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void registerJob() {
+        String name = nameField.getText().trim();
+        String contact = contactField.getText().trim();
+        String device = deviceField.getText().trim();
+        String issue = issueField.getText().trim();
+
+        if (name.length() == 0 || device.length() == 0 || issue.length() == 0) {
+            showError("Name, device, and issue are required.");
+            return;
+        }
+        if (!isValidContact(contact)) {
+            showError("Contact number must be 7 to 11 digits (numbers only).");
+            return;
+        }
+
+        String id = makeJobId(nextJobNumber);
+        nextJobNumber++;
+        queue.enqueue(new RepairJob(id, name, contact, device, issue));
+        nameField.setText("");
+        contactField.setText("");
+        deviceField.setText("");
+        issueField.setText("");
+
+        showOk("Registered " + id + " for " + name + ". Position in queue: " + queue.size());
+        refreshDisplay();
+
+    }
+
+    private void processNext() {
+        RepairJob job = queue.dequeue();
+        if (job == null) {
+            showError("No pending jobs to process.");
+            return;
+        }
+        refreshDisplay();
+        showOk("Processing " + job.getJobId() + " (" + job.getCustomerName() + ")");
+        JOptionPane.showMessageDialog(this,
+                "Now repairing:\n\nJob ID: " + job.getJobId()
+                + "\nCustomer: " + job.getCustomerName()
+                + "\nContact: " + job.getContactNumber()
+                + "\nDevice: " + job.getDeviceType()
+                + "\nIssue: " + job.getIssue(),
+                "Process Next Repair", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -28,11 +123,12 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollBar1 = new javax.swing.JScrollBar();
         formPanel = new javax.swing.JPanel();
         lblName = new javax.swing.JLabel();
         nameField = new javax.swing.JTextField();
         lblContact = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        contactField = new javax.swing.JTextField();
         lblDevice = new javax.swing.JLabel();
         deviceField = new javax.swing.JTextField();
         lblIssue = new javax.swing.JLabel();
@@ -64,7 +160,7 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
 
         lblContact.setText("Contact number (digits only):");
         formPanel.add(lblContact);
-        formPanel.add(jTextField1);
+        formPanel.add(contactField);
 
         lblDevice.setText("Device (e.g. Laptop, Desktop):");
         formPanel.add(lblDevice);
@@ -75,9 +171,11 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         formPanel.add(issueField);
 
         registerBtn.setText("Register Job");
+        registerBtn.addActionListener(this::registerBtnActionPerformed);
         formPanel.add(registerBtn);
 
         processBtn.setText("Process Next Repair");
+        processBtn.addActionListener(this::processBtnActionPerformed);
         formPanel.add(processBtn);
 
         jLabel1.setText("Search by Job ID (e.g. JOB-001):");
@@ -126,6 +224,16 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchFieldActionPerformed
 
+    private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
+        registerJob();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registerBtnActionPerformed
+
+    private void processBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processBtnActionPerformed
+        // TODO add your handling code here:
+        processNext();
+    }//GEN-LAST:event_processBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -152,12 +260,13 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField contactField;
     private javax.swing.JTextField deviceField;
     private javax.swing.JPanel formPanel;
     private javax.swing.JTextField issueField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblContact;
     private javax.swing.JLabel lblDevice;
     private javax.swing.JLabel lblIssue;
