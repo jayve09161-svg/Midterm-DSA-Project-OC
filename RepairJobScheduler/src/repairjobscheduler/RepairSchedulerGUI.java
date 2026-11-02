@@ -164,6 +164,7 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Computer Repair Job Scheduler");
 
+        formPanel.setBackground(new java.awt.Color(51, 204, 255));
         formPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Register Repair Job"));
         formPanel.setPreferredSize(new java.awt.Dimension(280, 400));
         formPanel.setLayout(new java.awt.GridLayout(13, 1, 0, 4));
@@ -186,6 +187,8 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         formPanel.add(lblIssue);
         formPanel.add(issueField);
 
+        registerBtn.setBackground(new java.awt.Color(0, 102, 255));
+        registerBtn.setForeground(new java.awt.Color(255, 255, 255));
         registerBtn.setText("Register Job");
         registerBtn.addActionListener(this::registerBtnActionPerformed);
         formPanel.add(registerBtn);
@@ -206,10 +209,11 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
 
         getContentPane().add(formPanel, java.awt.BorderLayout.WEST);
 
+        pendingPanel.setBackground(new java.awt.Color(204, 255, 255));
         pendingPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Pending Jobs"));
         pendingPanel.setLayout(new java.awt.BorderLayout());
 
-        nextLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        nextLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         nextLabel.setText("Next repair: none  |  Pending: 0");
         pendingPanel.add(nextLabel, java.awt.BorderLayout.PAGE_START);
 
