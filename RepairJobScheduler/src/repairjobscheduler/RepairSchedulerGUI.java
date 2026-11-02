@@ -69,6 +69,34 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         return true;
     }
 
+    private void registerJob() {
+        String name = nameField.getText().trim();
+        String contact = contactField.getText().trim();
+        String device = deviceField.getText().trim();
+        String issue = issueField.getText().trim();
+
+        if (name.length() == 0 || device.length() == 0 || issue.length() == 0) {
+            showError("Name, device, and issue are required.");
+            return;
+        }
+        if (!isValidContact(contact)) {
+            showError("Contact number must be 7 to 11 digits (numbers only).");
+            return;
+        }
+
+        String id = makeJobId(nextJobNumber);
+        nextJobNumber++;
+        queue.enqueue(new RepairJob(id, name, contact, device, issue));
+        nameField.setText("");
+        contactField.setText("");
+        deviceField.setText("");
+        issueField.setText("");
+
+        showOk("Registered " + id + " for " + name + ". Position in queue: " + queue.size());
+        refreshDisplay();
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,7 +111,7 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         lblName = new javax.swing.JLabel();
         nameField = new javax.swing.JTextField();
         lblContact = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        contactField = new javax.swing.JTextField();
         lblDevice = new javax.swing.JLabel();
         deviceField = new javax.swing.JTextField();
         lblIssue = new javax.swing.JLabel();
@@ -115,7 +143,7 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
 
         lblContact.setText("Contact number (digits only):");
         formPanel.add(lblContact);
-        formPanel.add(jTextField1);
+        formPanel.add(contactField);
 
         lblDevice.setText("Device (e.g. Laptop, Desktop):");
         formPanel.add(lblDevice);
@@ -126,6 +154,7 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         formPanel.add(issueField);
 
         registerBtn.setText("Register Job");
+        registerBtn.addActionListener(this::registerBtnActionPerformed);
         formPanel.add(registerBtn);
 
         processBtn.setText("Process Next Repair");
@@ -177,6 +206,11 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchFieldActionPerformed
 
+    private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
+    registerJob();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registerBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -203,13 +237,13 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField contactField;
     private javax.swing.JTextField deviceField;
     private javax.swing.JPanel formPanel;
     private javax.swing.JTextField issueField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblContact;
     private javax.swing.JLabel lblDevice;
     private javax.swing.JLabel lblIssue;

@@ -66,7 +66,7 @@
             <Property name="text" type="java.lang.String" value="Contact number (digits only):"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="contactField">
         </Component>
         <Component class="javax.swing.JLabel" name="lblDevice">
           <Properties>
@@ -86,6 +86,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Register Job"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registerBtnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="processBtn">
           <Properties>
