@@ -110,22 +110,39 @@ Midterm-DSA-Project-OC/
 
 
 
-\## Team and roles
+## Team and roles
 
-
-
-| Member | GitHub | Responsibility |
-
+| Member | GitHub | Main responsibility |
 |---|---|---|
+| Partner A: [Jaybee] | jayve09161-svg | Data structure and search |
+| Partner B: [Shaira Operio] | operioshaira90-sketch | GUI and documentation |
 
-| Partner A: \[Jaybee] | jayve09161-svg | `RepairJob`, `JobNode`, `RepairQueue`, `QueueTest`: queue operations and manual search |
+### Partner A: data structure and search
 
-| Partner B: \[Shaira Operio] | operioshaira90-sketch | `RepairSchedulerGUI`, validation, GUI integration and this README |
+- Wrote `RepairJob` (the job record) and `JobNode` (one node of the linked queue).
+- Implemented `RepairQueue` from scratch with `enqueue`, `dequeue` (with an empty check), `peek`, `isEmpty` and `size`.
+- Wrote the manual linear search `searchById`, the `positionOf` method, and `toDisplayString` for the pending list.
+- Wrote `QueueTest` to check the queue operations.
+- Pull requests: `feature/job-record-and-node`, `feature/queue-operations`, `feature/search-and-tests`.
+- Commits: [number].
 
+### Partner B: GUI and documentation
 
+- Built the Swing window `RepairSchedulerGUI` in NetBeans: the registration form, the pending jobs panel and the status bar.
+- Wrote the job ID generator (`JOB-001`, `JOB-002`, ...) and the input validation (required fields, contact number of 7 to 11 digits).
+- Connected the Register Job, Process Next Repair and Search buttons to the queue, with green and red status messages and a FOUND / NOT FOUND result.
+- Removed the NetBeans-generated `java.util` logger so the code follows the project rule of not using `java.util`.
+- Wrote this README.
+- Pull requests: `feature/gui-layout`, `feature/gui-operations`, `feature/gui-search-and-docs`.
+- Commits: [number].
 
-We worked on separate feature branches and reviewed each other's pull requests before merging into `main`.
+### How we worked together
 
+- **Split by file:** each of us owned separate files, so we rarely edited the same file and avoided merge conflicts.
+- **Feature branches:** every piece of work was done on its own branch and merged into `main` through a pull request.
+- **Peer review:** Partner A reviewed and merged Partner B's pull requests, and Partner B reviewed and merged Partner A's. We read the **Files changed** tab before approving.
+- **Order of work:** the GUI depends on the queue classes, so the queue was merged into `main` first, then the GUI buttons were connected to it.
+- **Shared understanding:** we both traced the program by hand (register three jobs, process one, search) and can explain all five source files, not only our own.
 
 
 \## Repository
