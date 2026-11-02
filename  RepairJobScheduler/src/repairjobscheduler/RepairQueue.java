@@ -22,4 +22,16 @@ public class RepairQueue {
     public boolean isEmpty() {
         return front == null;
     }
+        public void enqueue(RepairJob job) {
+        JobNode node = new JobNode(job);
+        if (isEmpty()) {
+            front = node;
+            rear = node;
+        } else {
+            rear.next = node;
+            rear = node;
+        }
+        size++;
+
+}
 }
