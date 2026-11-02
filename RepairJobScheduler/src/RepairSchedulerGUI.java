@@ -42,7 +42,11 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         searchField = new javax.swing.JTextField();
         searchBtn = new javax.swing.JButton();
         pendingPanel = new javax.swing.JPanel();
+        nextLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        pendingArea = new javax.swing.JTextArea();
         statusPanel = new javax.swing.JPanel();
+        statusLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Computer Repair Job Scheduler");
@@ -86,29 +90,27 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
 
         getContentPane().add(formPanel, java.awt.BorderLayout.WEST);
 
-        javax.swing.GroupLayout pendingPanelLayout = new javax.swing.GroupLayout(pendingPanel);
-        pendingPanel.setLayout(pendingPanelLayout);
-        pendingPanelLayout.setHorizontalGroup(
-            pendingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        pendingPanelLayout.setVerticalGroup(
-            pendingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 362, Short.MAX_VALUE)
-        );
+        pendingPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Pending Jobs"));
+        pendingPanel.setLayout(new java.awt.BorderLayout());
+
+        nextLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        nextLabel.setText("Next repair: none  |  Pending: 0");
+        pendingPanel.add(nextLabel, java.awt.BorderLayout.PAGE_START);
+
+        pendingArea.setEditable(false);
+        pendingArea.setColumns(20);
+        pendingArea.setFont(new java.awt.Font("Monospaced", 0, 13)); // NOI18N
+        pendingArea.setRows(5);
+        jScrollPane1.setViewportView(pendingArea);
+
+        pendingPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(pendingPanel, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout statusPanelLayout = new javax.swing.GroupLayout(statusPanel);
-        statusPanel.setLayout(statusPanelLayout);
-        statusPanelLayout.setHorizontalGroup(
-            statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 740, Short.MAX_VALUE)
-        );
-        statusPanelLayout.setVerticalGroup(
-            statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        statusPanel.setLayout(new java.awt.BorderLayout());
+
+        statusLabel.setText(" ");
+        statusPanel.add(statusLabel, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(statusPanel, java.awt.BorderLayout.SOUTH);
 
@@ -153,17 +155,21 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
     private javax.swing.JPanel formPanel;
     private javax.swing.JTextField issueField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblContact;
     private javax.swing.JLabel lblDevice;
     private javax.swing.JLabel lblIssue;
     private javax.swing.JLabel lblName;
     private javax.swing.JTextField nameField;
+    private javax.swing.JLabel nextLabel;
+    private javax.swing.JTextArea pendingArea;
     private javax.swing.JPanel pendingPanel;
     private javax.swing.JButton processBtn;
     private javax.swing.JButton registerBtn;
     private javax.swing.JButton searchBtn;
     private javax.swing.JTextField searchField;
+    private javax.swing.JLabel statusLabel;
     private javax.swing.JPanel statusPanel;
     // End of variables declaration//GEN-END:variables
 }
