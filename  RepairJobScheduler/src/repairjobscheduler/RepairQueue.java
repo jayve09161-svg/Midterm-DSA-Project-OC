@@ -47,4 +47,13 @@ public class RepairQueue {
         return job;
     }
 
+                public int size() {
+        return size;
+    }
+
+    /** Look at the front job without removing it. */
+    public RepairJob peek() {
+        return isEmpty() ? null : front.data;
+    }
+
 }
