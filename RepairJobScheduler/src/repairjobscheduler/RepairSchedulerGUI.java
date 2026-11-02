@@ -114,6 +114,22 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
                 "Process Next Repair", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    private void searchJob() {
+        String id = searchField.getText().trim().toUpperCase();
+        if (id.length() == 0) {
+            showError("Enter a Job ID to search.");
+            return;
+        }
+        RepairJob found = queue.searchById(id);
+        if (found == null) {
+            showError("NOT FOUND: no pending job with ID " + id
+                    + " (it may already be processed).");
+        } else {
+            int pos = queue.positionOf(found.getJobId());
+            showOk("FOUND: " + found + "  | queue position: " + pos);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -185,6 +201,7 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         formPanel.add(searchField);
 
         searchBtn.setText("Search");
+        searchBtn.addActionListener(this::searchBtnActionPerformed);
         formPanel.add(searchBtn);
 
         getContentPane().add(formPanel, java.awt.BorderLayout.WEST);
@@ -233,6 +250,11 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         processNext();
     }//GEN-LAST:event_processBtnActionPerformed
+
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+        // TODO add your handling code here:
+        searchJob();
+    }//GEN-LAST:event_searchBtnActionPerformed
 
     /**
      * @param args the command line arguments
