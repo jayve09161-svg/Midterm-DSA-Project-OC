@@ -97,6 +97,23 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
 
     }
 
+    private void processNext() {
+        RepairJob job = queue.dequeue();
+        if (job == null) {
+            showError("No pending jobs to process.");
+            return;
+        }
+        refreshDisplay();
+        showOk("Processing " + job.getJobId() + " (" + job.getCustomerName() + ")");
+        JOptionPane.showMessageDialog(this,
+                "Now repairing:\n\nJob ID: " + job.getJobId()
+                + "\nCustomer: " + job.getCustomerName()
+                + "\nContact: " + job.getContactNumber()
+                + "\nDevice: " + job.getDeviceType()
+                + "\nIssue: " + job.getIssue(),
+                "Process Next Repair", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -158,6 +175,7 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         formPanel.add(registerBtn);
 
         processBtn.setText("Process Next Repair");
+        processBtn.addActionListener(this::processBtnActionPerformed);
         formPanel.add(processBtn);
 
         jLabel1.setText("Search by Job ID (e.g. JOB-001):");
@@ -207,9 +225,14 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_searchFieldActionPerformed
 
     private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
-    registerJob();
+        registerJob();
         // TODO add your handling code here:
     }//GEN-LAST:event_registerBtnActionPerformed
+
+    private void processBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processBtnActionPerformed
+        // TODO add your handling code here:
+        processNext();
+    }//GEN-LAST:event_processBtnActionPerformed
 
     /**
      * @param args the command line arguments
