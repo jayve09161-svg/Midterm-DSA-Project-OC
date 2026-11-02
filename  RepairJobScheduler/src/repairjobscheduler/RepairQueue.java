@@ -55,5 +55,29 @@ public class RepairQueue {
     public RepairJob peek() {
         return isEmpty() ? null : front.data;
     }
+    public RepairJob searchById(String id) {
+        JobNode current = front;
+        while (current != null) {
+            if (sameText(current.data.getJobId(), id)) {
+                return current.data;
+            }
+            current = current.next;
+        }
+        return null;
+    }
+
+    /** Manual case-insensitive comparison (no built-in search helpers). */
+    private boolean sameText(String a, String b) {
+        if (a.length() != b.length()) {
+            return false;
+        }
+        for (int i = 0; i < a.length(); i++) {
+            if (Character.toUpperCase(a.charAt(i)) != Character.toUpperCase(b.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 }
