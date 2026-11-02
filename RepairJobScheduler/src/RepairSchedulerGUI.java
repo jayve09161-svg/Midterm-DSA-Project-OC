@@ -28,22 +28,61 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         formPanel = new javax.swing.JPanel();
+        lblName = new javax.swing.JLabel();
+        nameField = new javax.swing.JTextField();
+        lblContact = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        lblDevice = new javax.swing.JLabel();
+        deviceField = new javax.swing.JTextField();
+        lblIssue = new javax.swing.JLabel();
+        issueField = new javax.swing.JTextField();
+        registerBtn = new javax.swing.JButton();
+        processBtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        searchField = new javax.swing.JTextField();
+        searchBtn = new javax.swing.JButton();
         pendingPanel = new javax.swing.JPanel();
         statusPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Computer Repair Job Scheduler");
 
-        javax.swing.GroupLayout formPanelLayout = new javax.swing.GroupLayout(formPanel);
-        formPanel.setLayout(formPanelLayout);
-        formPanelLayout.setHorizontalGroup(
-            formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 740, Short.MAX_VALUE)
-        );
-        formPanelLayout.setVerticalGroup(
-            formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 362, Short.MAX_VALUE)
-        );
+        formPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Register Repair Job"));
+        formPanel.setPreferredSize(new java.awt.Dimension(280, 400));
+        formPanel.setLayout(new java.awt.GridLayout(13, 1, 0, 4));
+
+        lblName.setText("Customer name:");
+        formPanel.add(lblName);
+
+        nameField.addActionListener(this::nameFieldActionPerformed);
+        formPanel.add(nameField);
+
+        lblContact.setText("Contact number (digits only):");
+        formPanel.add(lblContact);
+        formPanel.add(jTextField1);
+
+        lblDevice.setText("Device (e.g. Laptop, Desktop):");
+        formPanel.add(lblDevice);
+        formPanel.add(deviceField);
+
+        lblIssue.setText("Issue description:");
+        formPanel.add(lblIssue);
+        formPanel.add(issueField);
+
+        registerBtn.setText("Register Job");
+        formPanel.add(registerBtn);
+
+        processBtn.setText("Process Next Repair");
+        formPanel.add(processBtn);
+
+        jLabel1.setText("Search by Job ID (e.g. JOB-001):");
+        formPanel.add(jLabel1);
+
+        searchField.addActionListener(this::searchFieldActionPerformed);
+        formPanel.add(searchField);
+
+        searchBtn.setText("Search");
+        formPanel.add(searchBtn);
 
         getContentPane().add(formPanel, java.awt.BorderLayout.WEST);
 
@@ -76,6 +115,14 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void nameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nameFieldActionPerformed
+
+    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchFieldActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -102,8 +149,21 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField deviceField;
     private javax.swing.JPanel formPanel;
+    private javax.swing.JTextField issueField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblContact;
+    private javax.swing.JLabel lblDevice;
+    private javax.swing.JLabel lblIssue;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JTextField nameField;
     private javax.swing.JPanel pendingPanel;
+    private javax.swing.JButton processBtn;
+    private javax.swing.JButton registerBtn;
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JTextField searchField;
     private javax.swing.JPanel statusPanel;
     // End of variables declaration//GEN-END:variables
 }
