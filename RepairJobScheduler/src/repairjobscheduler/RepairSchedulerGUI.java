@@ -16,7 +16,6 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
     private final RepairQueue queue = new RepairQueue();
     private int nextJobNumber = 1;
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RepairSchedulerGUI.class.getName());
 
     /**
      * RepairSchedulerGUI
@@ -164,7 +163,7 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Computer Repair Job Scheduler");
 
-        formPanel.setBackground(new java.awt.Color(51, 204, 255));
+        formPanel.setBackground(new java.awt.Color(0, 255, 255));
         formPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Register Repair Job"));
         formPanel.setPreferredSize(new java.awt.Dimension(280, 400));
         formPanel.setLayout(new java.awt.GridLayout(13, 1, 0, 4));
@@ -277,7 +276,7 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+             ex.printStackTrace();
         }
         //</editor-fold>
 
