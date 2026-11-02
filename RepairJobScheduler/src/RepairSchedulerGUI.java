@@ -66,7 +66,7 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new RepairScheculerGUI().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new RepairSchedulerGUI().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
