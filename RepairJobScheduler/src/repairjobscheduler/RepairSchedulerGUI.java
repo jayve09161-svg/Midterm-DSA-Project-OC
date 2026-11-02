@@ -16,7 +16,6 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
     private final RepairQueue queue = new RepairQueue();
     private int nextJobNumber = 1;
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RepairSchedulerGUI.class.getName());
 
     /**
      * RepairSchedulerGUI
@@ -114,6 +113,22 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
                 "Process Next Repair", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    private void searchJob() {
+        String id = searchField.getText().trim().toUpperCase();
+        if (id.length() == 0) {
+            showError("Enter a Job ID to search.");
+            return;
+        }
+        RepairJob found = queue.searchById(id);
+        if (found == null) {
+            showError("NOT FOUND: no pending job with ID " + id
+                    + " (it may already be processed).");
+        } else {
+            int pos = queue.positionOf(found.getJobId());
+            showOk("FOUND: " + found + "  | queue position: " + pos);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -148,6 +163,7 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Computer Repair Job Scheduler");
 
+        formPanel.setBackground(new java.awt.Color(0, 255, 255));
         formPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Register Repair Job"));
         formPanel.setPreferredSize(new java.awt.Dimension(280, 400));
         formPanel.setLayout(new java.awt.GridLayout(13, 1, 0, 4));
@@ -170,6 +186,8 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         formPanel.add(lblIssue);
         formPanel.add(issueField);
 
+        registerBtn.setBackground(new java.awt.Color(0, 102, 255));
+        registerBtn.setForeground(new java.awt.Color(255, 255, 255));
         registerBtn.setText("Register Job");
         registerBtn.addActionListener(this::registerBtnActionPerformed);
         formPanel.add(registerBtn);
@@ -185,14 +203,16 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         formPanel.add(searchField);
 
         searchBtn.setText("Search");
+        searchBtn.addActionListener(this::searchBtnActionPerformed);
         formPanel.add(searchBtn);
 
         getContentPane().add(formPanel, java.awt.BorderLayout.WEST);
 
+        pendingPanel.setBackground(new java.awt.Color(204, 255, 255));
         pendingPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Pending Jobs"));
         pendingPanel.setLayout(new java.awt.BorderLayout());
 
-        nextLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        nextLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         nextLabel.setText("Next repair: none  |  Pending: 0");
         pendingPanel.add(nextLabel, java.awt.BorderLayout.PAGE_START);
 
@@ -234,6 +254,11 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         processNext();
     }//GEN-LAST:event_processBtnActionPerformed
 
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+        // TODO add your handling code here:
+        searchJob();
+    }//GEN-LAST:event_searchBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -251,7 +276,7 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+             ex.printStackTrace();
         }
         //</editor-fold>
 
