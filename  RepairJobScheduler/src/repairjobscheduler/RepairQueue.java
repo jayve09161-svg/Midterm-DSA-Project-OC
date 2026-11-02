@@ -34,4 +34,17 @@ public class RepairQueue {
         size++;
 
 }
+            public RepairJob dequeue() {
+        if (isEmpty()) {
+            return null;
+        }
+        RepairJob job = front.data;
+        front = front.next;
+        if (front == null) {
+            rear = null;
+        }
+        size--;
+        return job;
+    }
+
 }
