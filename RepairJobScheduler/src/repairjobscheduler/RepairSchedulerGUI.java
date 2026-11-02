@@ -1,22 +1,52 @@
 package repairjobscheduler;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author ASUS
  */
+import java.awt.Color;
+import javax.swing.JOptionPane;
+
 public class RepairSchedulerGUI extends javax.swing.JFrame {
-    
+
+    private final RepairQueue queue = new RepairQueue();
+    private int nextJobNumber = 1;
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RepairSchedulerGUI.class.getName());
 
     /**
-     * Creates new form RepairScheculerGUI
+     * RepairSchedulerGUI
      */
     public RepairSchedulerGUI() {
         initComponents();
+        setSize(820, 520);
+        setLocationRelativeTo(null);
+        refreshDisplay();
+    }
+
+    private void refreshDisplay() {
+        pendingArea.setText(queue.toDisplayString());
+        RepairJob next = queue.peek();
+        if (next == null) {
+            nextLabel.setText("Next repair: none  |  Pending: 0");
+        } else {
+            nextLabel.setText("Next repair: " + next.getJobId() + " (" + next.getCustomerName()
+                    + ")  |  Pending: " + queue.size());
+        }
+    }
+
+    private void showOk(String msg) {
+        statusLabel.setForeground(new Color(0, 120, 0));
+        statusLabel.setText(" " + msg);
+    }
+
+    private void showError(String msg) {
+        statusLabel.setForeground(Color.RED);
+        statusLabel.setText(" " + msg);
     }
 
     /**
@@ -28,6 +58,7 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollBar1 = new javax.swing.JScrollBar();
         formPanel = new javax.swing.JPanel();
         lblName = new javax.swing.JLabel();
         nameField = new javax.swing.JTextField();
@@ -156,6 +187,7 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
     private javax.swing.JPanel formPanel;
     private javax.swing.JTextField issueField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblContact;
