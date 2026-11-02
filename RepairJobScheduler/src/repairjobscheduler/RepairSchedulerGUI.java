@@ -48,6 +48,13 @@ public class RepairSchedulerGUI extends javax.swing.JFrame {
         statusLabel.setForeground(Color.RED);
         statusLabel.setText(" " + msg);
     }
+    private String makeJobId(int n) {
+    String num = "" + n;
+    while (num.length() < 3) {
+        num = "0" + num;
+    }
+    return "JOB-" + num;
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
