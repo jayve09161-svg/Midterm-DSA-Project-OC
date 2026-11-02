@@ -91,6 +91,19 @@ public class RepairQueue {
         }
         return -1;
     }
+        /** Pending jobs as text, one per line, in processing order. */
+    public String toDisplayString() {
+        StringBuilder sb = new StringBuilder();
+        JobNode current = front;
+        int n = 1;
+        while (current != null) {
+            sb.append(n).append(". ").append(current.data).append("\n");
+            current = current.next;
+            n++;
+        }
+        return sb.toString();
+    }
+
 
 
 
